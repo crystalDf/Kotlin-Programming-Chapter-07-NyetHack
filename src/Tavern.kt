@@ -30,18 +30,13 @@ private fun placeOrder(menuData: String) {
 
 private fun toDragonSpeak(phrase: String) = phrase.replace(Regex("[aeiouAEIOU]")) {
 
-    when (it.value) {
+    when (it.value.toLowerCase()) {
 
         "a" -> "4"
         "e" -> "3"
         "i" -> "1"
         "o" -> "0"
         "u" -> "|_|"
-        "A" -> "4"
-        "E" -> "3"
-        "I" -> "1"
-        "O" -> "0"
-        "U" -> "|_|"
         else -> it.value
     }
 }
