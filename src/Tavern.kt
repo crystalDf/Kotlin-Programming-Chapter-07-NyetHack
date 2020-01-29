@@ -1,24 +1,47 @@
+const val TAVERN_NAME = "Taernyl's Folly"
+
 fun main(args: Array<String>) {
 
-    var beverage = readLine()?.let {
-        if (it.isNotBlank()) {
-            it.capitalize()
-        } else {
-            "Buttered Ale"
-        }
-    }
+    placeOrder("shandy,Dragon's Breath,5.91")
+    placeOrder("elixir,Shirley's Temple,4.12")
+}
 
-    println(beverage)
+private fun placeOrder(menuData: String) {
 
-    beverage = null
+    val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
+    val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
 
-    if (beverage != null) {
-        beverage = beverage.capitalize()
+    println("Madrigal speaks with $tavernMaster about their order.")
+
+    val (type, name, price) = menuData.split(',')
+    val message = "Madrigal buys a $name ($type) for $price"
+
+    println(message)
+
+    val phrase = if (name == "Dragon's Breath") {
+        "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name!")}" + "\n" +
+        "Madrigal exclaims: ${toDragonSpeak("DRAGON'S BREATH: IT'S GOT WHAT ADVENTURERS CRAVE!")}"
     } else {
-        println("I can't do that without crashing - beverage was null!")
+        "Madrigal says: Thanks for the $name"
     }
 
-    val beverageServed: String = beverage ?: "Buttered Ale"
+    println(phrase)
+}
 
-    println(beverageServed)
+private fun toDragonSpeak(phrase: String) = phrase.replace(Regex("[aeiouAEIOU]")) {
+
+    when (it.value) {
+
+        "a" -> "4"
+        "e" -> "3"
+        "i" -> "1"
+        "o" -> "0"
+        "u" -> "|_|"
+        "A" -> "4"
+        "E" -> "3"
+        "I" -> "1"
+        "O" -> "0"
+        "U" -> "|_|"
+        else -> it.value
+    }
 }
